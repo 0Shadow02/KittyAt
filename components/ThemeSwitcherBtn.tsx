@@ -18,7 +18,7 @@ export function ModeToggle() {
   }
 
   return (
-    <Button variant="ghost" size="icon" onClick={toggleTheme}>
+    <Button variant="secondary" size="icon" onClick={toggleTheme}>
       {theme === "light" ? (
         <Sun className="h-[1.2rem] w-[1.2rem] transition-all" />
       ) : (
