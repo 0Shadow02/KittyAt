@@ -1,8 +1,26 @@
 import type { Config } from "tailwindcss";
+const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require("tailwindcss/colors");
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
 
-export default {
-    darkMode: ["class"],
-    content: [
+function addVariablesForColors({ addBase, theme }: any) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}
+
+/** @type {import('tailwindcss').Config} */
+const config: Config = {
+  darkMode: ["class"],
+  content: [
+    "./src/**/*.{ts,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -12,6 +30,8 @@ export default {
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
+  			'discord-color': '#5865f2',
+  			'discord-background': '#36393f',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
@@ -67,14 +87,14 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		keyframes: {
-		    'shimmer': {
-				from: {
-				  "backgroundPosition": "0 0"
-				},
-				to: {
-				  "backgroundPosition": "-200% 0"
-				}
-			  },
+  			shimmer: {
+  				from: {
+  					backgroundPosition: '0 0'
+  				},
+  				to: {
+  					backgroundPosition: '-200% 0'
+  				}
+  			},
   			'accordion-down': {
   				from: {
   					height: '0'
@@ -90,14 +110,25 @@ export default {
   				to: {
   					height: '0'
   				}
+  			},
+  			'shiny-text': {
+  				'0%, 90%, 100%': {
+  					'background-position': 'calc(-100% - var(--shiny-width)) 0'
+  				},
+  				'30%, 60%': {
+  					'background-position': 'calc(100% + var(--shiny-width)) 0'
+  				}
   			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out',
-            'shimmer': "shimmer 2s linear infinite"
+  			shimmer: 'shimmer 2s linear infinite',
+  			'shiny-text': 'shiny-text 8s infinite'
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+  plugins: [addVariablesForColors, require("tailwindcss-animate")],
+};
+
+export default config;
