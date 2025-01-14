@@ -23,7 +23,7 @@ export default function(){
 const items = [  
     {label:"Home", link:"/"  },
     {label:"Help", link:"/settings"  },
-    {label:"Signout", link:"/signout"  },
+    {label:"Pricing", link:"/pricing"  },
 ] 
 
 const Desktop = () => {

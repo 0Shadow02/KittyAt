@@ -8,6 +8,8 @@ import {
 import { BentoCard, BentoGrid } from "../ui/bento-grid";
 import { AnimatedBeamMultipleOutputDemo } from "./AnimatedBeam";
 import RetroGrid from "../ui/retro-grid";
+import Image from "next/image";
+import Ripple from "../ui/ripple";
   
   
   
@@ -28,13 +30,12 @@ import RetroGrid from "../ui/retro-grid";
     },
     {
       name: "Notifications",
-      description:
-        "",
-      background: <img className="absolute -right-20 -top-20 opacity-60" />,
+      description: "Stay informed with real-time notifications for all critical events. Get alerts for signups, payments, and other important activities to ensure you never miss a beat.",
+      background: <Ripple/>,
       className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-4 lg:h-[400px]",
     },
   ];
-  
+    
   export function Bento() {
     return (
       <BentoGrid className="lg:grid-rows-3">
