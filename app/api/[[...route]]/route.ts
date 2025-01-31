@@ -1,5 +1,11 @@
-import { httpHandler } from "@/server"
+export const runtime = "edge";
 
-export const runtime = "edge"
+export const GET = async (req: Request) => {
+  const { httpHandler } = await import("@/server");
+  return httpHandler(req);
+};
 
-export { httpHandler as GET, httpHandler as POST }
+export const POST = async (req: Request) => {
+  const { httpHandler } = await import("@/server");
+  return httpHandler(req);
+};
