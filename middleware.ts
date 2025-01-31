@@ -1,28 +1,20 @@
-import NextAuth from "next-auth";
-import authConfig from "@/auth.config";
-import {
-  DEFAULT_LOGIN_REDIRECT,
-  apiAuthPrefix,
-  authRoutes,
-  publicRoutes,
-} from "@/routes";
+import { isBypassRoute } from "@/routes";
+import { getToken } from "next-auth/jwt";
 
-const { auth } = NextAuth(authConfig);
+export const runtime = "edge";
 
-interface AuthRequest {
-  nextUrl: URL;
-  auth?: any;
-}
+export default async function middleware(req: Request) {
+  const { DEFAULT_LOGIN_REDIRECT, apiAuthPrefix, authRoutes, publicRoutes } = await import("@/routes");
 
-export default auth(async (req: AuthRequest): Promise<void | Response> => {
-  const { nextUrl } = req;
-  const isLoggedIn = !!req.auth;
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const isLoggedIn = !!token;
 
-  // Allow Next.js static files
-  const isStaticAsset = nextUrl.pathname.startsWith('/_next/') || 
-                       nextUrl.pathname.includes('.') && 
-                       !nextUrl.pathname.endsWith('.html');
-  
+  const nextUrl = new URL(req.url);
+
+  // Bypass authentication for static assets and specific API route
+  if (isBypassRoute(nextUrl)) {
+    return;
+  }
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
@@ -51,4 +43,4 @@ export default auth(async (req: AuthRequest): Promise<void | Response> => {
   }
 
   return undefined;
-});
+}
