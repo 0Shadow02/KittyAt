@@ -10,7 +10,6 @@ export const Useredetails = async () => {
       id : session?.user?.id
     }
   })
-  console.log(Useredata)
   return Useredata
 }
 

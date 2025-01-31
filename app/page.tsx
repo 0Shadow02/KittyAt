@@ -13,21 +13,18 @@ import { LoginButton } from "@/components/auth/loginbutton";
 import { MovingCard } from "@/components/InfiniteMovingCard";
 import CodeCard from "@/components/CodeCard";
 import { LampContainer } from "@/components/ui/lamp";
-import { motion } from "framer-motion";
 import { MacbookScrollKit } from "@/components/motion-ui/macbookscroll";
-import { MacbookScroll } from "@/components/ui/macbook-scroll";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { InView } from "@/components/ui/in-view";
+import { Footer } from "@/components/footer";
 
 function Page() {
   return (
     <div className="relative min-h-screen w-full bg-black bg-opacity-95 flex flex-col overflow-x-hidden">
       <Navbar />
-      
-      {/* First Section with Background Beams */}
       <section className="relative flex flex-col items-center justify-center py-24 sm:py-32 text-center w-full px-3.5 md:px-20 z-10 overflow-hidden">
         <BackgroundBeams className="absolute inset-0 pointer-events-none z-0" />
-        
+
         <div className="mb-4 relative z-20">
           <div className="h-[10rem] w-full flex flex-col items-center justify-center overflow-hidden rounded-md">
             <h1 className="md:text-7xl text-3xl lg:text-8xl font-bold text-center text-white relative z-20">
@@ -60,15 +57,15 @@ function Page() {
             <span>
               <TextShimmer
                 duration={1.2}
-                className="py-4 [--base-color:theme(colors.blue.600)] [--base-gradient-color:theme(colors.blue.200)] dark:[--base-color:theme(colors.blue.700)] dark:[--base-gradient-color:theme(colors.blue.400)]"
+                className="py-4 [--base-color:theme(colors.blue.700)] [--base-gradient-color:theme(colors.blue.400)]"
               >
                 Delivered to Your Discord
               </TextShimmer>
             </span>
           </Heading>
         </div>
-        
-        <p className="flex flex-col justify-center items-center text-lg text-gray-600 dark:text-gray-300 max-w-prose text-center relative z-20">
+
+        <p className="flex flex-col justify-center items-center text-lg text-gray-300 max-w-prose text-center relative z-20">
           KittyAt provides effortless monitoring for your web application. Stay
           instantly informed about
           <span className="font-semibold text-foreground text-lg">
@@ -76,7 +73,7 @@ function Page() {
           </span>
           through automated alerts.
         </p>
-        
+
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl mt-10 mx-auto relative z-20">
           {[
             "Real-time Discord alerts for critical events",
@@ -88,18 +85,16 @@ function Page() {
           ].map((item, index) => (
             <li
               key={index}
-              className="flex gap-3 items-center p-4 rounded-xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow"
+              className="flex gap-3 items-center p-4 rounded-xl bg-slate-900/50 backdrop-blur-sm border border-slate-800 shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className="p-2 rounded-full bg-blue-100/50 dark:bg-blue-900/20">
-                <CheckSquare2Icon className="size-6 text-blue-500 dark:text-blue-400" />
+              <div className="p-2 rounded-full bg-blue-900/20">
+                <CheckSquare2Icon className="size-6 text-blue-400" />
               </div>
-              <span className="text-slate-800 dark:text-slate-200 font-medium">
-                {item}
-              </span>
+              <span className=" text-slate-200 font-medium">{item}</span>
             </li>
           ))}
         </ul>
-        
+
         <div className="mt-8 relative z-20">
           <LoginButton asChild>
             <ShinyButton>Start for Free Today</ShinyButton>
@@ -107,18 +102,18 @@ function Page() {
         </div>
       </section>
 
-      {/* Rest of the Page Content */}
       <div className="relative z-20 w-full overflow-hidden">
         <MacbookScrollKit />
       </div>
 
       <InView
-        viewOptions={{ once: true, margin: '0px 0px -250px 0px' }}
+        viewOptions={{ once: true, margin: "0px 0px -100px 0px" }}
         variants={{
-          hidden: { opacity: 0 },
+          hidden: { opacity: 0, y: 20 },
           visible: {
             opacity: 1,
-            transition: { staggerChildren: 0.09 },
+            y: 0,
+            transition: { duration: 0.6, ease: "easeOut" },
           },
         }}
       >
@@ -171,7 +166,18 @@ function Page() {
             </DiscordUi>
           </div>
         </section>
-
+      </InView>
+      <InView
+        viewOptions={{ once: true, margin: "0px 0px -100px 0px" }}
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.6, ease: "easeOut", delay: 0.2 },
+          },
+        }}
+      >
         <section className="flex w-full flex-col items-center justify-center sm:py-24 text-center px-4 md:px-20 relative z-10">
           <div className="flex flex-col items-center justify-center gap-12 sm:gap-16 mx-4 sm:mx-16 md:mx-16">
             <LampContainer>
@@ -182,7 +188,7 @@ function Page() {
                 <Heading>
                   <TextShimmer
                     duration={1.2}
-                    className="py-4 [--base-color:theme(colors.gray.600)] [--base-gradient-color:theme(colors.blue.200)] dark:[--base-color:theme(colors.gray.700)] dark:[--base-gradient-color:theme(colors.blue.400)]"
+                    className="py-4 [--base-color:theme(colors.gray.700)] [--base-gradient-color:theme(colors.blue.400)]"
                   >
                     Stay ahead with real-time insights
                   </TextShimmer>
@@ -202,6 +208,8 @@ function Page() {
       <section className="w-screen">
         <MovingCard />
       </section>
+
+      <Footer id="bottom-of-page" />
     </div>
   );
 }
