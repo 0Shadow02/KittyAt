@@ -1,5 +1,4 @@
 import NextAuth from "next-auth";
-
 import authConfig from "@/auth.config";
 import {
   DEFAULT_LOGIN_REDIRECT,
@@ -10,28 +9,38 @@ import {
 
 const { auth } = NextAuth(authConfig);
 
-export default auth((req) => {
+interface AuthRequest {
+  nextUrl: URL;
+  auth?: any;
+}
+
+export default auth(async (req: AuthRequest): Promise<void | Response> => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
+
+  // Allow Next.js static files
+  const isStaticAsset = nextUrl.pathname.startsWith('/_next/') || 
+                       nextUrl.pathname.includes('.') && 
+                       !nextUrl.pathname.endsWith('.html');
+  
+  // Bypass authentication for static assets and specific API route
+  if (isStaticAsset || nextUrl.pathname.startsWith("/api/v1/events")) {
+    return;
+  }
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-  // Bypass authentication for the specific API route
-  if (nextUrl.pathname.startsWith("/api/v1/events")) {
-    return null;
-  }
-
   if (isApiAuthRoute) {
-    return null;
+    return;
   }
 
   if (isAuthRoute) {
     if (isLoggedIn) {
       return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
     }
-    return null;
+    return;
   }
 
   if (!isLoggedIn && !isPublicRoute) {
@@ -40,12 +49,10 @@ export default auth((req) => {
       callbackUrl += nextUrl.search;
     }
 
-    const encodedCallbackUrl = encodeURIComponent(callbackUrl);
-
     return Response.redirect(
-      new URL(`/api/auth/signin?callbackUrl=${encodedCallbackUrl}`, nextUrl)
+      new URL(`/auth/login?callbackUrl=${encodeURIComponent(callbackUrl)}`, nextUrl)
     );
   }
 
-  return null;
+  return undefined;
 });
