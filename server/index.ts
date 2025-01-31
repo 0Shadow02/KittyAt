@@ -18,7 +18,7 @@ const appRouter = app
   .route("/project", projectRouter);
 
 // The handler Next.js uses to answer API requests
-// export const httpHandler = handle(app);
+export const httpHandler = handle(app);
 
 /**
  * (Optional)
