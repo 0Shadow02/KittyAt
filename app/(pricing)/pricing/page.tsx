@@ -6,7 +6,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 const Page = () => {
-  const { data, error, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["userDetails"],
     queryFn: Useredetails,
   });
