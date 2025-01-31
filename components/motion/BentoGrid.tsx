@@ -1,15 +1,8 @@
-import {
-    BellIcon,
-    CalendarIcon,
-    FileTextIcon,
-    GlobeIcon,
-    InputIcon,
-  } from "@radix-ui/react-icons";
 import { BentoCard, BentoGrid } from "../ui/bento-grid";
 import { AnimatedBeamMultipleOutputDemo } from "./AnimatedBeam";
 import RetroGrid from "../ui/retro-grid";
-import Image from "next/image";
-import Ripple from "../ui/ripple";
+import { Ripple } from "../ui/ripple"
+
   
   
   
@@ -31,7 +24,7 @@ import Ripple from "../ui/ripple";
     {
       name: "Notifications",
       description: "Stay informed with real-time notifications for all critical events. Get alerts for signups, payments, and other important activities to ensure you never miss a beat.",
-      background: <Ripple/>,
+      background: <Ripple />,
       className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-4 lg:h-[400px]",
     },
   ];

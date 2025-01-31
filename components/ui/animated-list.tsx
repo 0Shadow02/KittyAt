@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion } from "framer-motion";
 import React, { ReactNode, useEffect, useMemo, useState } from "react";
 
 export interface AnimatedListProps {
@@ -11,20 +11,35 @@ export interface AnimatedListProps {
 
 export const AnimatedList = React.memo(
   ({ className, children, delay = 1000 }: AnimatedListProps) => {
-     const [messages ,setMessages] = useState<ReactNode[]>([])
-     const childrenArray = React.Children.toArray(children)
-
-     useEffect(()=> {
-         const interval = setInterval(()=>{
-          if(messages.length < childrenArray.length) {
-              setMessages((prev)=>[childrenArray[messages.length], ...prev])
-          } else {
-            clearInterval(interval)
+    const [messages, setMessages] = useState<ReactNode[]>([]);
+    const childrenArray = useMemo(
+      () => React.Children.toArray(children),
+      [children]
+    );
+    
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setMessages((prev) => {
+          if (prev.length < childrenArray.length) {
+            return [childrenArray[prev.length], ...prev];
           }
-         },delay)
+          return prev;
+        });
+      }, delay);
 
-         return () => clearInterval(interval)
-     } ,[childrenArray , delay ,messages.length])
+      return () => clearInterval(interval);
+    }, [childrenArray, delay]);
+
+    // Reset when all items are shown
+    useEffect(() => {
+      if (messages.length === childrenArray.length) {
+        const timeout = setTimeout(() => {
+          setMessages([]);
+        }, delay);
+        
+        return () => clearTimeout(timeout);
+      }
+    }, [messages.length, childrenArray.length, delay]);
 
     return (
       <div className={`flex flex-col-reverse items-center gap-4 ${className}`}>
@@ -37,7 +52,7 @@ export const AnimatedList = React.memo(
         </AnimatePresence>
       </div>
     );
-  },
+  }
 );
 
 AnimatedList.displayName = "AnimatedList";

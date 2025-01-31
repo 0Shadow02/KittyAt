@@ -13,6 +13,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { FaExclamationCircle, FaSpinner } from "react-icons/fa";
 import { CATEGORY_NAME_VALIDATOR } from "@/lib/validators/category-validator";
+import { toast } from "sonner";
+import { motion, AnimatePresence } from "framer-motion";
 
 const isEmojiOrImageUrl = (value: string) => {
   const emojiRegex = /\p{Emoji}/u;
@@ -49,13 +51,13 @@ const COLOR_OPTIONS = [
   "#8A2BE2", // bg-[#8A2BE2] ring-[#8A2BE2] Blue Violet
   "#00CED1", // bg-[#00CED1] ring-[#00CED1] Dark Turquoise
   "#FF4500", // bg-[#FF4500] ring-[#FF4500] Orange Red
+  "#FFFFFF", // bg-[#FFFFFF] ring-[#FFFFFF] whiteh-screen
   "#DA70D6", // bg-[#DA70D6] ring-[#DA70D6] Orchid
   "#32CD32", // bg-[#32CD32] ring-[#32CD32] Lime Green
   "#FF1493", // bg-[#FF1493] ring-[#FF1493] Deep Pink
   "#1E90FF", // bg-[#1E90FF] ring-[#1E90FF] Dodger Blue
   "#FFDAB9", // bg-[#FFDAB9] ring-[#FFDAB9] Peach Puff
   "#B22222", // bg-[#B22222] ring-[#B22222] Firebrick
-  "#FFFFFF", // bg-[#FFFFFF] ring-[#FFFFFF] whiteh-screen
 ];
 
 const EMOJI_OPTIONS = [
@@ -144,6 +146,156 @@ export const CreateEventCategoryModal = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user-event-categories"] });
+      setIsOpen(false);
+
+      toast.custom((t) => (
+        <AnimatePresence>
+          <motion.div
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 100, opacity: 0 }}
+            className="relative group flex items-center gap-3 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-850 p-4 pl-3 pr-5 rounded-xl border border-green-100 dark:border-emerald-900/60 shadow-2xl shadow-green-100/30 dark:shadow-gray-950/50 hover:shadow-green-200/40 dark:hover:shadow-emerald-900/40 transition-all duration-300"
+          >
+            {/* Progress bar with Framer Motion */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-green-50/30 dark:bg-emerald-900/10 rounded-t-xl overflow-hidden">
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 4, ease: "linear" }}
+                className="h-full bg-gradient-to-r from-green-400 to-emerald-400 origin-left"
+              />
+            </div>
+
+            {/* Icon with subtle bounce */}
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="relative flex-shrink-0 p-2 bg-white dark:bg-gray-850 rounded-lg shadow-sm border border-green-50 dark:border-emerald-900/50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-check-circle"
+              >
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <path d="m9 11 3 3L22 4" />
+              </svg>
+            </motion.div>
+
+            {/* Text content with fade-in */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1 }}
+              className="space-y-0.5"
+            >
+              <div className="space-y-0.5">
+                <h3 className="font-semibold text-green-900 dark:text-emerald-100 text-[15px] tracking-tight">
+                  Category Created
+                </h3>
+                <p className="text-sm text-green-700/90 dark:text-emerald-300/90 font-medium">
+                  Successfully added to your collection!
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Glow effect */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="absolute inset-0 -z-10 bg-gradient-to-r from-green-200/20 to-emerald-200/20 dark:from-emerald-900/10 dark:to-green-900/10 rounded-xl blur-sm"
+            />
+          </motion.div>
+        </AnimatePresence>
+      ));
+
+    
+    },
+    onError: () => {
+      toast.custom((t) => {
+        return (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20, transition: { duration: 0.2 } }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            className="relative"
+          >
+            <motion.div
+              whileHover={{ scale: 1.02, rotate: 0.5 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex items-center gap-4 bg-slate-300 dark:bg-gray-850 p-4 pr-6 rounded-xl border border-gray-150 dark:border-gray-700 shadow-xl hover:shadow-lg transition-all duration-200 backdrop-blur-sm bg-opacity-90"
+            >
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', delay: 0.1 }}
+                className="flex-shrink-0 p-2 bg-purple-50/50 dark:bg-purple-900/20 rounded-lg"
+              >
+                <motion.span
+                  animate={{ rotate: [0, -10, 10, 0] }}
+                  transition={{ yoyo: Infinity, duration: 2 }}
+                  className="text-xl text-blue-600 dark:text-blue-300 inline-block"
+                >
+                  🔒
+                </motion.span>
+              </motion.div>
+      
+              <div className="flex-grow">
+                <motion.h3
+                  initial={{ y: 5 }}
+                  animate={{ y: 0 }}
+                  className="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-base"
+                >
+                  Event Categories Locked
+                </motion.h3>
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="text-sm text-gray-600 dark:text-gray-300 leading-snug"
+                >
+                  Upgrade to{" "}
+                  <span className="font-medium text-blue-600 dark:text-blue-400 bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
+                    PRO Plan
+                  </span>
+                </motion.p>
+              </div>
+      
+              <motion.button
+                whileHover={{ scale: 1.05, background: `linear-gradient(to bottom right`}}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+                onClick={() => (window.location.href = "/pricing")}
+                className="flex-shrink-0 px-4 py-2 text-sm font-medium bg-gradient-to-br from-blue-600 to-indigo-500 hover:from-blue-700 hover:to-indigo-600 text-white rounded-lg shadow-sm relative overflow-hidden"
+              >
+                <span className="relative z-10">Upgrade Now</span>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="absolute inset-0 bg-white/10 backdrop-blur-[1px] rounded-lg"
+                />
+              </motion.button>
+            </motion.div>
+      
+            {/* Progress bar */}
+            <motion.div
+              initial={{ scaleX: 1 }}
+              animate={{ scaleX: 0 }}
+              transition={{ duration: 4, ease: "linear" }}
+              className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 to-cyan-900 origin-left"
+            />
+          </motion.div>
+        );
+      });
       setIsOpen(false);
     },
   });
@@ -253,9 +405,7 @@ export const CreateEventCategoryModal = ({
             </div>
 
             <Label className="text-gray-700">Category Emoji</Label>
-            <div
-              className="flex flex-wrap gap-3 relative overflow-y-auto max-h-64 scrollbar-hide" 
-            >
+            <div className="flex flex-wrap gap-3 relative overflow-y-auto max-h-64 scrollbar-hide">
               {loading && (
                 <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
                   {/* <div className="loader">Loading...</div> */}
@@ -267,12 +417,12 @@ export const CreateEventCategoryModal = ({
                   key={`${emoji}-${label}`}
                   type="button"
                   className={cn(
-                    "size-12 flex items-center justify-center text-2xl rounded-xl", 
+                    "size-12 flex items-center justify-center text-2xl rounded-xl",
                     "transition-all duration-200 ease-in-out transform",
-                    "hover:bg-blue-50 hover:border-blue-100 hover:scale-105", 
-                    "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:scale-105", 
+                    "hover:bg-blue-50 hover:border-blue-100 hover:scale-105",
+                    "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:scale-105",
                     selectedEmoji === emoji
-                      ? "bg-blue-50 border-blue-500 scale-110 shadow-md" 
+                      ? "bg-blue-50 border-blue-500 scale-110 shadow-md"
                       : "border-transparent"
                   )}
                   onClick={() => setValue("emoji", emoji)}
@@ -300,7 +450,7 @@ export const CreateEventCategoryModal = ({
               type="button"
               variant="outline"
               onClick={() => setIsOpen(false)}
-              className="hover:bg-gray-50"
+              className="hover:bg-gray-50 hover:text-black"
             >
               Cancel
             </Button>

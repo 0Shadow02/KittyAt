@@ -8,6 +8,7 @@ import AnimatedBackground from './ui/animated-background'
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
 import { MenuSquare } from 'lucide-react'
 import { ModeToggle } from './ThemeSwitcherBtn'
+import { LoginButton } from './auth/loginbutton'
 
 
 
@@ -22,13 +23,13 @@ export default function(){
 
 const items = [  
     {label:"Home", link:"/"  },
-    {label:"Help", link:"/settings"  },
+    {label:"Help", link: "#bottom-of-page"},
     {label:"Pricing", link:"/pricing"  },
 ] 
 
 const Desktop = () => {
   return (
-    <div className="hidden border-separate bg-background md:block lg:block ">
+    <div className="hidden border-separate bg-background md:block lg:block bg-slate-200 dark:bg-black ">
         
       <nav className='w-full flex justify-between items-center px-8 h-[55px] min-h-[50px] '>
         <div className=' text-3xl font-bold font-mono text-foreground'>
@@ -38,7 +39,11 @@ const Desktop = () => {
           <AnimateNavbaeItems/>
         </div>
         <div>
-        <ModeToggle/>
+          <LoginButton>
+          <Button variant={"secondary"}>
+            Get started
+          </Button>
+          </LoginButton>
         </div>
       </nav>
     </div>
