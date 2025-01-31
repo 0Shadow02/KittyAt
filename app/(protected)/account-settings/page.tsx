@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiUser, FiLock, FiBell, FiChevronRight, FiUpload } from 'react-icons/fi';
+import { FiUser, FiBell, FiChevronRight } from 'react-icons/fi';
 import { FaPallet } from 'react-icons/fa';
 import Profile from './_components/profile';
 import { ShieldEllipsisIcon } from 'lucide-react';
