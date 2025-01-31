@@ -41,7 +41,7 @@ const Page = async ({ params }: PageProps) => {
         orderBy: {
           createdAt: 'desc'
         },
-        take: 1000 
+        take: 1000 // Adjust based on your needs
       },
       _count: {
         select: {

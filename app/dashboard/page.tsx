@@ -2,7 +2,6 @@ import DashboardPage from "@/components/Dashboard-page";
 import React from "react";
 import { DashboardPageContent } from "./_components/Dashboard-Page-Content";
 import { CreateEventCategoryModal } from "@/components/create-event-category-modal";
-import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 
 const Dashboard = () => {

@@ -4,13 +4,9 @@ import prisma from "@/lib/prismadb";
 import { notFound } from "next/navigation";
 import { CategoryPageContent } from "../../_components/category-page-content";
 
-interface PageProps {
-  params: {
-    name: string | string[] | undefined;
-  };
-}
 
-const Page = async ({ params }: PageProps) => {
+
+const Page = async ({ params }:{params:Promise<{name:string}>}) => {
   const { name } = await params;
 
   if (typeof name !== "string") return notFound();
