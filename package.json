@@ -3,12 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "postinstall": "npm install --legacy-peer-deps",
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "clean": "rm -rf .next",
-    "build:clean": "bun run clean && bun run build"
+    "lint": "next lint"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",
