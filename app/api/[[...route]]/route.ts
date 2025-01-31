@@ -1,4 +1,5 @@
-export const runtime = "edge";
+import { httpHandler } from "@/server"
 
-// If httpHandler is not used, remove the export as well
-// export { httpHandler as GET, httpHandler as POST };
+export const runtime = "edge"
+
+export { httpHandler as GET, httpHandler as POST }
