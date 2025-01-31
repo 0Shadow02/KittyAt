@@ -1,11 +1,4 @@
 export const runtime = "edge";
 
-export const GET = async (req: Request) => {
-  const { httpHandler } = await import("@/server");
-  return httpHandler(req);
-};
-
-export const POST = async (req: Request) => {
-  const { httpHandler } = await import("@/server");
-  return httpHandler(req);
-};
+// If httpHandler is not used, remove the export as well
+// export { httpHandler as GET, httpHandler as POST };
