@@ -6,13 +6,7 @@ import { notFound } from "next/navigation";
 import { CategoryAnalyticsContent } from "@/app/dashboard/_components/analytics-page";
 
 
-interface PageProps {
-  params: {
-    name: string | string[] | undefined;
-  };
-}
-
-const Page = async ({ params }: PageProps) => {
+const Page = async ({params}:{params:Promise<{name:string}>}) => {
   const { name } = await params;
 
   if (typeof name !== "string") return notFound();

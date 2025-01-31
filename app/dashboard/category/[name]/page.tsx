@@ -5,8 +5,7 @@ import { notFound } from "next/navigation";
 import { CategoryPageContent } from "../../_components/category-page-content";
 
 
-
-const Page = async ({ params }:{params:Promise<{name:string}>}) => {
+const Page = async ({ params }: {params:Promise<{name:string | string[] | undefined}>}) => {
   const { name } = await params;
 
   if (typeof name !== "string") return notFound();
