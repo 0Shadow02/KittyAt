@@ -1,7 +1,7 @@
 import { isBypassRoute } from "@/routes";
 import { getToken } from "next-auth/jwt";
 
-export const runtime = "edge";
+export const runtime = "experimental-edge";
 
 export default async function middleware(req: Request) {
   const { DEFAULT_LOGIN_REDIRECT, apiAuthPrefix, authRoutes, publicRoutes } = await import("@/routes");
