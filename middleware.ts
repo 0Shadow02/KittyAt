@@ -23,10 +23,6 @@ export default auth(async (req: AuthRequest): Promise<void | Response> => {
                        nextUrl.pathname.includes('.') && 
                        !nextUrl.pathname.endsWith('.html');
   
-  // Bypass authentication for static assets and specific API route
-  if (isStaticAsset || nextUrl.pathname.startsWith("/api/v1/events")) {
-    return;
-  }
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
