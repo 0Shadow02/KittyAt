@@ -26,7 +26,7 @@ export const httpHandler = handle(app);
  *
  * Run `npm run deploy` for one-click API deployment to Cloudflare's edge network
  */
-// export default app;
+export default app;
 
 // export type definition of API
 export type AppType = typeof appRouter;
