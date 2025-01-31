@@ -7,7 +7,7 @@ import type { ThemeProviderProps } from 'next-themes';
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const pathname = usePathname();
-  const forcedTheme = pathname === '/' || '/auth' ? 'dark' : 'light';
+  const forcedTheme = pathname === '/' || pathname.startsWith('/auth') ? 'dark' : 'light';
 
   return (
     <NextThemesProvider
