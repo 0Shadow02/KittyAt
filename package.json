@@ -3,11 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "npm install --legacy-peer-deps && next build",
     "dev": "next dev",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "npm install --legacy-peer-deps"
+    "lint": "next lint"
   },
   "dependencies": {
     "react": "^19.0.0",
