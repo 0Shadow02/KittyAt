@@ -1,35 +1,52 @@
-import { NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";  // Import getToken to get JWT directly from cookies
-import { apiAuthPrefix, publicRoutes, authRoutes, DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import NextAuth from "next-auth";
 
-export default async function middleware(req:any) {
+import authConfig from "@/auth.config";
+import {
+  DEFAULT_LOGIN_REDIRECT,
+  apiAuthPrefix,
+  authRoutes,
+  publicRoutes,
+} from "@/routes";
+
+const { auth } = NextAuth(authConfig);
+
+export default auth((req) => {
   const { nextUrl } = req;
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });  // Get the JWT token from the request
-  const isLoggedIn = !!token;  // Check if there's a token, indicating that the user is logged in
+  const isLoggedIn = !!req.auth;
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-  if (isApiAuthRoute) return;  // Skip the API auth routes
+  if (isApiAuthRoute) {
+    return null;
+  }
 
   if (isAuthRoute) {
     if (isLoggedIn) {
-      return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));  // Redirect if logged in
+      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
     }
-    return NextResponse.next();  // Proceed if not logged in
+    return null;
   }
 
   if (!isLoggedIn && !isPublicRoute) {
-    const callbackUrl = encodeURIComponent(nextUrl.pathname + (nextUrl.search || ""));
-    return NextResponse.redirect(
-      new URL(`/auth/login?callbackUrl=${callbackUrl}`, nextUrl)  // Redirect to login if not logged in and not a public route
-    );
+    let callbackUrl = nextUrl.pathname;
+    if (nextUrl.search) {
+      callbackUrl += nextUrl.search;
+    }
+
+    const encodedCallbackUrl = encodeURIComponent(callbackUrl);
+
+    return Response.redirect(new URL(
+      `/auth/login?callbackUrl=${encodedCallbackUrl}`,
+      nextUrl
+    ));
   }
 
-  return NextResponse.next();  // Proceed for other cases
-}
+  return null;
+})
 
+// Optionally, don't invoke Middleware on some paths
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
-};
+  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+}
