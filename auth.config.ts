@@ -27,10 +27,10 @@ export default {
           if (!user || !user.password) return null;
 
           // Dynamically import bcryptjs so that it isn't bundled in the Edge Function.
-          // const { default: bcrypt } = await import("bcryptjs");
-          // const passwordsMatch = await bcrypt.compare(password, user.password);
+          const { default: bcrypt } = await import("bcryptjs");
+          const passwordsMatch = await bcrypt.compare(password, user.password);
 
-          // if (passwordsMatch) return user;
+          if (passwordsMatch) return user;
         }
 
         return null;
