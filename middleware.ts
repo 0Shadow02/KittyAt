@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
-export const runtime = "experimental-edge";
+
 
 export default async function middleware(req: Request) {
   const { DEFAULT_LOGIN_REDIRECT, apiAuthPrefix, authRoutes, publicRoutes } = await import("@/routes");
@@ -16,11 +16,15 @@ export default async function middleware(req: Request) {
 
   const nextUrl = new URL(req.url);
 
-  // Bypass authentication for static assets and specific API route
-  if (nextUrl.pathname.startsWith('/_next/') || nextUrl.pathname.includes('.') && !nextUrl.pathname.endsWith('.html') || nextUrl.pathname.startsWith("/api/v1/events")) {
-    return;
-  }
-
+ // Bypass authentication for static assets and specific API routes
+ if (
+  nextUrl.pathname.startsWith('/_next/') ||
+  nextUrl.pathname.includes('.') && !nextUrl.pathname.endsWith('.html') ||
+  nextUrl.pathname.startsWith("/api/v1/events") ||
+  nextUrl.pathname === "/api/verify-password"
+) {
+  return;
+}
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);

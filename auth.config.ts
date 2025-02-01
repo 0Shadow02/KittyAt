@@ -22,7 +22,7 @@ export default {
         if (validatedFields.success) {
           const { email, password } = validatedFields.data;
 
-          const response = await fetch(`${process.env.VERCEL_URL}/api/verify-password`, {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/verify-password`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
