@@ -6,7 +6,12 @@ export const runtime = "experimental-edge";
 export default async function middleware(req: Request) {
   const { DEFAULT_LOGIN_REDIRECT, apiAuthPrefix, authRoutes, publicRoutes } = await import("@/routes");
 
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const secret = process.env.AUTH_SECRET;
+  if (!secret) {
+    throw new Error("Missing AUTH_SECRET environment variable");
+  }
+
+  const token = await getToken({ req, secret });
   const isLoggedIn = !!token;
 
   const nextUrl = new URL(req.url);
