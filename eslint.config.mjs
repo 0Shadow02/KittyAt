@@ -13,22 +13,24 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     rules: {
-      "react/no-unescaped-entities": "off",
-      "@next/next/no-img-element": "off",
-      "@typescript-eslint/no-unused-vars": "off",
-      "@typescript-eslint/no-explicit-any": "off",
-      "prefer-const": "off",
-      "no-var": "off",
-      "react/jsx-no-comment-textnodes": "off",
-      "react/display-name": "off",
-      "import/no-anonymous-default-export": "off",
-      "react-hooks/rules-of-hooks": "off",
-      "react-hooks/exhaustive-deps": "off",
-      "@typescript-eslint/no-wrapper-object-types": "off",
-      "@typescript-eslint/no-unsafe-function-type": "off",
-      "@typescript-eslint/no-unused-expressions": "off",
-      "no-explicit-any": "off"
+      "react/no-unescaped-entities": "warn",
+      "@next/next/no-img-element": "error",
+      'no-unused-vars': 'warn',
+      "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "prefer-const": "warn",
+      "no-var": "error",
+      "react/jsx-no-comment-textnodes": "warn",
+      "react/display-name": "warn",
+      "import/no-anonymous-default-export": "warn",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "@typescript-eslint/no-wrapper-object-types": "warn",
+      "@typescript-eslint/no-unsafe-function-type": "warn",
+      "@typescript-eslint/no-unused-expressions": "warn",
+      "no-explicit-any": "warn"
     }
+    
   }
 ];
 
