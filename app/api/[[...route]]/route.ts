@@ -1,5 +1,5 @@
-import { httpHandler } from "@/server"
+import app from "@/server"; 
+import { handle } from "hono/vercel";
 
-export const runtime = "edge"
-
-export { httpHandler as GET, httpHandler as POST }
+export const GET = handle(app);
+export const POST = handle(app);
