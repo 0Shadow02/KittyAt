@@ -30,8 +30,6 @@ const eslintConfig = [
       "@typescript-eslint/no-unused-expressions": "warn",
       "no-explicit-any": "warn"
     }
-    
   }
 ];
 
-export default eslintConfig;

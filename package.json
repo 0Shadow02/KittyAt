@@ -90,14 +90,12 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-syntax-highlighter": "^15.5.13",
     "eslint": "^9.19.0",
     "eslint-config-next": "15.1.2",
-    "postcss": "^8",
     "prisma": "^6.2.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"

@@ -4,18 +4,16 @@ import { Modal } from "@/components/modal";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { Gem, Home, Key, LucideIcon, Menu, Settings, X } from "lucide-react";
+import { Gem, Home, Key, LucideIcon, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { PropsWithChildren, useEffect, useRef, useState } from "react";
-import { Drawer } from "vaul";
 import { Useredetails } from "../actions/server-actions/get-user";
 import { AvatarCircles } from "@/components/ui/avatar-circles";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "sonner";
 import { FaDiscord } from "react-icons/fa";
 import { IconType } from "react-icons";
-import ProfileDropdown from "@/components/profiledropdown";
 import { LogoutButton } from "@/components/auth/logout-button";
 
 interface SidebarItem {
