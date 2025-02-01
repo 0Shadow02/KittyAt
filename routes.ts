@@ -3,10 +3,7 @@
  * These routes do not require authentication
  * @type {string[]}
  */
-export const publicRoutes = [
-  "/",
-  "/auth/new-verification"
-];
+export const publicRoutes = ["/", "/auth/new-verification","/api/v1/events"];
 
 /**
  * An array of routes that are used for authentication
@@ -23,27 +20,27 @@ export const authRoutes = [
 
 /**
  * The prefix for API authentication routes
- * Routes that start with this prefix are used for API authentication purposes
+ * Routes that start with this prefix are used for API authentication puposes
  * @type {string}
  */
 export const apiAuthPrefix = "/api/auth";
 
 /**
- * The default redirect path after logging in
+ * The default redirect path after loggin in
  * @type {string}
  */
 export const DEFAULT_LOGIN_REDIRECT = "/dashboard";
 
-/**
- * A condition to bypass authentication for static assets and a specific API route
- * Static assets are files served by Next.js that start with '/_next/' or contain a dot ('.') but do not end with '.html'
- * The specific API route '/api/v1/events' is also bypassed
- * @param {URL} nextUrl - The URL of the incoming request
- * @returns {boolean} - Returns true if the request is for a static asset or the specific API route, otherwise false
- */
-export const isBypassRoute = (nextUrl: URL): boolean => {
-  const isStaticAsset = nextUrl.pathname.startsWith('/_next/') || 
-                        nextUrl.pathname.includes('.') && 
-                        !nextUrl.pathname.endsWith('.html');
-  return isStaticAsset || nextUrl.pathname.startsWith("/api/v1/events");
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
