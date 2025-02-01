@@ -6,22 +6,20 @@ const { auth } = NextAuth(authConfig);
 
 export default auth((req) => {
   const { nextUrl, auth: isLoggedIn } = req;
-  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
-  const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+  const path = nextUrl.pathname;
 
-  if (isApiAuthRoute) return;
-
-  if (isAuthRoute && isLoggedIn) {
+  if (path.startsWith(apiAuthPrefix)) return;
+  
+  if (authRoutes.includes(path) && isLoggedIn) {
     return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
   }
 
-  if (!isLoggedIn && !isPublicRoute) {
-    const callbackUrl = encodeURIComponent(nextUrl.pathname + nextUrl.search);
+  if (!isLoggedIn && !publicRoutes.includes(path)) {
+    const callbackUrl = encodeURIComponent(path + nextUrl.search);
     return Response.redirect(new URL(`/auth/login?callbackUrl=${callbackUrl}`, nextUrl));
   }
 });
 
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  // matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
