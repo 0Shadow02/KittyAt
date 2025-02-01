@@ -60,7 +60,7 @@ export const LoginForm = () => {
 
           if (data?.success) {
             form.reset();
-            setSuccess(data.success);
+            setSuccess(typeof data.success === "string" ? data.success : undefined);
             // Redirect to callbackUrl or fallback to homepage
             const redirectTo = callbackUrl ?? "/";
             router.push(redirectTo); // Redirect after login
