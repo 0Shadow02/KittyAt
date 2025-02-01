@@ -53,7 +53,7 @@ export const LoginForm = () => {
         .then((data) => {
           if (data?.error) {
             form.reset();
-            setError(data.error);
+            setError(typeof data.error === "string" ? data.error : "An error occurred");
           }
 
           if (data?.success) {
