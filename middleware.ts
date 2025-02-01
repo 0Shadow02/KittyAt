@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt"; // Import getToken from next-auth/jwt
+import { getToken } from "next-auth/jwt";
 import { apiAuthPrefix, publicRoutes, authRoutes, DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 export default async function middleware(req: NextRequest) {
