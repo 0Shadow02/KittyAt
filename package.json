@@ -15,6 +15,7 @@
     "@discordjs/rest": "^2.4.2",
     "@hookform/resolvers": "^3.9.1",
     "@neondatabase/serverless": "^0.10.4",
+    "@noble/hashes": "^1.7.1",
     "@prisma/adapter-neon": "^6.2.1",
     "@prisma/client": "^6.2.1",
     "@radix-ui/react-accordion": "^1.2.2",
