@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcryptjs';
-import { getUserByEmail } from '@/data/user'; // Replace with your user retrieval logic
+import { getUserByEmail } from '@/data/user'; 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
