@@ -1,11 +1,9 @@
-import bcrypt from "bcryptjs";
 import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 
 import { LoginSchema } from "@/schemas";
-import { getUserByEmail } from "@/data/user";
 
 export default {
   providers: [
@@ -24,12 +22,18 @@ export default {
         if (validatedFields.success) {
           const { email, password } = validatedFields.data;
 
-          const user = await getUserByEmail(email);
-          if (!user || !user.password) return null;
+          const response = await fetch(`${process.env.VERCEL_URL}/api/verify-password`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+          });
 
-          const passwordsMatch = await bcrypt.compare(password, user.password);
-
-          if (passwordsMatch) return user;
+          if (response.ok) {
+            const { user } = await response.json();
+            return user;
+          }
         }
 
         return null;
