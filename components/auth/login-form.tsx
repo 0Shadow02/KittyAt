@@ -22,7 +22,6 @@ import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { login } from "@/actions/login";
-import { useRouter } from "next/navigation"; 
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -36,7 +35,6 @@ export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
-  const router = useRouter(); // Initialize the useRouter hook
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -60,10 +58,7 @@ export const LoginForm = () => {
 
           if (data?.success) {
             form.reset();
-            setSuccess(typeof data.success === "string" ? data.success : undefined);
-            // Redirect to callbackUrl or fallback to homepage
-            const redirectTo = callbackUrl ?? "/";
-            router.push(redirectTo); // Redirect after login
+            setSuccess(data.success);
           }
 
           if (data?.twoFactor) {
