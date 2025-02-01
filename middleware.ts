@@ -1,19 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { getToken } from "next-auth/jwt"; // Import getToken from next-auth/jwt
 import { apiAuthPrefix, publicRoutes, authRoutes, DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
-export default async function middleware(req:NextRequest) {
-  const { nextUrl } = req;
+export default async function middleware(req: NextRequest) {
+  const { nextUrl, cookies } = req;
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-  const isLoggedIn = !!token;
 
-  console.log("Token exists:", isLoggedIn);  // Log token existence
+  console.log("Token exists:", token ? true : false); // Log token existence
+
+  const isLoggedIn = !!token;
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-  if (isApiAuthRoute) return;
+  if (isApiAuthRoute) return NextResponse.next();
 
   if (isAuthRoute) {
     if (isLoggedIn) {
