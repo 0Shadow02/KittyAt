@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const DiscordUi = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="h-screen w-full flex flex-col items-center justify-center">
+    <div className="h-screen w-full flex flex-col items-center justify-center scale-[0.8] sm:scale-90 md:scale-100">
       <div className="m-2 lg:m-4 rounded-xl bg-opacity-25 dark:bg-opacity-25 p-2 lg:p-4 ring-1 ring-inset ring-gray-900/10 dark:ring-gray-100/10 max-w-[1240px] w-full">
         <div className="flex min-h-[800px] w-full max-w-[1200px] bg-discord-background text-white rounded-lg overflow-hidden shadow-xl mx-auto">
           <div className="hidden sm:flex w-[72px] bg-[#202225] flex-col items-center py-3">
