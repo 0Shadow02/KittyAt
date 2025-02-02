@@ -166,7 +166,6 @@ export const CreateEventCategoryModal = ({
               />
             </div>
 
-            {/* Icon with subtle bounce */}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
@@ -190,7 +189,6 @@ export const CreateEventCategoryModal = ({
               </svg>
             </motion.div>
 
-            {/* Text content with fade-in */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -207,7 +205,6 @@ export const CreateEventCategoryModal = ({
               </div>
             </motion.div>
 
-            {/* Glow effect */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -216,8 +213,6 @@ export const CreateEventCategoryModal = ({
           </motion.div>
         </AnimatePresence>
       ));
-
-    
     },
     onError: () => {
       toast.custom((t) => {
@@ -226,7 +221,7 @@ export const CreateEventCategoryModal = ({
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20, transition: { duration: 0.2 } }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="relative"
           >
             <motion.div
@@ -237,7 +232,7 @@ export const CreateEventCategoryModal = ({
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                transition={{ type: 'spring', delay: 0.1 }}
+                transition={{ type: "spring", delay: 0.1 }}
                 className="flex-shrink-0 p-2 bg-purple-50/50 dark:bg-purple-900/20 rounded-lg"
               >
                 <motion.span
@@ -248,7 +243,7 @@ export const CreateEventCategoryModal = ({
                   🔒
                 </motion.span>
               </motion.div>
-      
+
               <div className="flex-grow">
                 <motion.h3
                   initial={{ y: 5 }}
@@ -269,11 +264,14 @@ export const CreateEventCategoryModal = ({
                   </span>
                 </motion.p>
               </div>
-      
+
               <motion.button
-                whileHover={{ scale: 1.05, background: `linear-gradient(to bottom right`}}
+                whileHover={{
+                  scale: 1.05,
+                  background: `linear-gradient(to bottom right`,
+                }}
                 whileTap={{ scale: 0.95 }}
-                transition={{ type: 'spring', stiffness: 300 }}
+                transition={{ type: "spring", stiffness: 300 }}
                 onClick={() => (window.location.href = "/pricing")}
                 className="flex-shrink-0 px-4 py-2 text-sm font-medium bg-gradient-to-br from-blue-600 to-indigo-500 hover:from-blue-700 hover:to-indigo-600 text-white rounded-lg shadow-sm relative overflow-hidden"
               >
@@ -285,7 +283,7 @@ export const CreateEventCategoryModal = ({
                 />
               </motion.button>
             </motion.div>
-      
+
             {/* Progress bar */}
             <motion.div
               initial={{ scaleX: 1 }}
@@ -339,26 +337,31 @@ export const CreateEventCategoryModal = ({
       <div className={containerClassName} onClick={() => setIsOpen(true)}>
         {children}
       </div>
-
       <Modal
-        className="max-w-xl p-8 rounded-xl shadow-2xl border border-gray-100"
+        className="max-w-[90vw] md:max-w-xl p-4 md:p-6 lg:p-8 rounded-xl shadow-2xl border border-gray-100 overflow-y-auto"
         showModal={isOpen}
         setShowModal={setIsOpen}
       >
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-6 md:space-y-8"
+        >
           <div className="text-center space-y-2">
-            <h2 className="text-2xl font-bold text-gray-900 tracking-tight">
+            <h2 className="text-xl md:text-2xl font-bold text-gray-900 tracking-tight">
               ✨ New Event Category
             </h2>
-            <p className="text-gray-500 text-sm leading-relaxed">
+            <p className="text-gray-500 text-sm md:text-base leading-normal md:leading-relaxed">
               Organize your events with custom categories. Choose a name, color,
               and emoji to get started.
             </p>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-gray-700">
+              <Label
+                htmlFor="name"
+                className="text-gray-700 text-sm md:text-base"
+              >
                 Category Name
               </Label>
               <Input
@@ -366,7 +369,7 @@ export const CreateEventCategoryModal = ({
                 id="name"
                 {...register("name")}
                 placeholder="e.g. user-signup"
-                className="w-full focus:ring-2 focus:ring-blue-500 transition-all"
+                className="w-full text-sm md:text-base focus:ring-2 focus:ring-blue-500 transition-all"
                 aria-invalid={!!errors.name}
               />
               {errors.name && (
@@ -378,15 +381,17 @@ export const CreateEventCategoryModal = ({
             </div>
 
             <div className="space-y-2">
-              <Label className="text-gray-700">Accent Color</Label>
-              <div className="flex flex-wrap gap-3">
+              <Label className="text-gray-700 text-sm md:text-base">
+                Accent Color
+              </Label>
+              <div className="flex flex-wrap gap-2 md:gap-3">
                 {COLOR_OPTIONS.map((premadeColor) => (
                   <button
                     key={premadeColor}
                     type="button"
                     style={{ backgroundColor: premadeColor }}
                     className={cn(
-                      "size-10 rounded-full border-2 border-white shadow-sm hover:scale-105 transition-transform",
+                      "size-8 md:size-10 rounded-full border-2 border-white shadow-sm hover:scale-105 transition-transform",
                       "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
                       color === premadeColor
                         ? "scale-110 ring-2 ring-offset-2 ring-blue-500"
@@ -404,60 +409,67 @@ export const CreateEventCategoryModal = ({
               )}
             </div>
 
-            <Label className="text-gray-700">Category Emoji</Label>
-            <div className="flex flex-wrap gap-3 relative overflow-y-auto max-h-64 scrollbar-hide">
-              {loading && (
-                <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
-                  {/* <div className="loader">Loading...</div> */}
-                </div>
+            <div className="space-y-2">
+              <Label className="text-gray-700 text-sm md:text-base">
+                Category Emoji
+              </Label>
+              <div className="flex flex-wrap gap-2 md:gap-3 relative overflow-y-auto max-h-48 md:max-h-64 scrollbar-hide">
+                {loading && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
+                    {/* <div className="loader">Loading...</div> */}
+                  </div>
+                )}
+
+                {EMOJI_OPTIONS.map(({ emoji, label, isImage }) => (
+                  <button
+                    key={`${emoji}-${label}`}
+                    type="button"
+                    className={cn(
+                      "size-10 md:size-12 flex items-center justify-center text-xl md:text-2xl rounded-xl",
+                      "transition-all duration-200 ease-in-out transform",
+                      "hover:bg-blue-50 hover:border-blue-100 hover:scale-105",
+                      "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:scale-105",
+                      selectedEmoji === emoji
+                        ? "bg-blue-50 border-blue-500 scale-110 shadow-md"
+                        : "border-transparent"
+                    )}
+                    onClick={() => setValue("emoji", emoji)}
+                    disabled={loading}
+                  >
+                    {isImage ? (
+                      <img
+                        src={emoji}
+                        alt={label}
+                        className="w-6 h-6 md:w-8 md:h-8"
+                      />
+                    ) : (
+                      emoji
+                    )}
+                  </button>
+                ))}
+              </div>
+              {errors.emoji && (
+                <p className="mt-1.5 text-sm text-rose-500 flex items-center gap-1.5">
+                  <FaExclamationCircle className="w-4 h-4" />
+                  {errors.emoji.message}
+                </p>
               )}
-
-              {EMOJI_OPTIONS.map(({ emoji, label, isImage }) => (
-                <button
-                  key={`${emoji}-${label}`}
-                  type="button"
-                  className={cn(
-                    "size-12 flex items-center justify-center text-2xl rounded-xl",
-                    "transition-all duration-200 ease-in-out transform",
-                    "hover:bg-blue-50 hover:border-blue-100 hover:scale-105",
-                    "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:scale-105",
-                    selectedEmoji === emoji
-                      ? "bg-blue-50 border-blue-500 scale-110 shadow-md"
-                      : "border-transparent"
-                  )}
-                  onClick={() => setValue("emoji", emoji)}
-                  disabled={loading}
-                >
-                  {isImage ? (
-                    <img src={emoji} alt={label} className="w-8 h-8" />
-                  ) : (
-                    emoji
-                  )}
-                </button>
-              ))}
             </div>
-
-            {errors.emoji && (
-              <p className="mt-1.5 text-sm text-rose-500 flex items-center gap-1.5">
-                <FaExclamationCircle className="w-4 h-4" />
-                {errors.emoji.message}
-              </p>
-            )}
           </div>
 
-          <div className="flex justify-end gap-4 pt-6 border-t border-gray-100">
+          <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-4 pt-4 md:pt-6 border-t border-gray-100">
             <Button
               type="button"
               variant="outline"
               onClick={() => setIsOpen(false)}
-              className="hover:bg-gray-50 hover:text-black"
+              className="w-full sm:w-auto hover:bg-gray-50 hover:text-black text-sm md:text-base"
             >
               Cancel
             </Button>
             <Button
               disabled={isPending}
               type="submit"
-              className="relative hover:-translate-y-0.5 transition-transform"
+              className="w-full sm:w-auto relative hover:-translate-y-0.5 transition-transform text-sm md:text-base"
             >
               {isPending ? (
                 <span className="flex items-center gap-2">
