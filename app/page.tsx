@@ -22,19 +22,19 @@ function Page() {
   return (
     <div className="relative min-h-screen w-full bg-black bg-opacity-95 flex flex-col overflow-x-hidden">
       <Navbar />
-      <section className="relative flex flex-col items-center justify-center py-24 sm:py-32 text-center w-full px-3.5 md:px-20 z-10 overflow-hidden">
+      <section className="relative flex flex-col items-center justify-center py-16 sm:py-24 lg:py-32 text-center w-full px-4 md:px-8 lg:px-20 z-10 overflow-hidden">
         <BackgroundBeams className="absolute inset-0 pointer-events-none z-0" />
 
-        <div className="mb-4 relative z-20">
-          <div className="h-[10rem] w-full flex flex-col items-center justify-center overflow-hidden rounded-md">
-            <h1 className="md:text-7xl text-3xl lg:text-8xl font-bold text-center text-white relative z-20">
+        <div className="mb-4 relative z-20 w-full max-w-7xl mx-auto">
+          <div className="h-[8rem] sm:h-[10rem] w-full flex flex-col items-center justify-center overflow-hidden rounded-md">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-center text-white relative z-20 px-2">
               KittyAt
             </h1>
-            <div className="w-[40rem] h-20 relative">
-              <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
-              <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
-              <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
-              <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
+            <div className="w-full max-w-[40rem] h-20 relative">
+              <div className="absolute inset-x-0 sm:inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-full sm:w-3/4 blur-sm" />
+              <div className="absolute inset-x-0 sm:inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-full sm:w-3/4" />
+              <div className="absolute inset-x-0 sm:inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/2 sm:w-1/4 blur-sm" />
+              <div className="absolute inset-x-0 sm:inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2 sm:w-1/4" />
 
               <SparklesCore
                 background="transparent"
@@ -48,16 +48,16 @@ function Page() {
               <div className="absolute inset-0 w-full h-full [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]" />
             </div>
           </div>
-          <Heading>
+          <Heading className="px-4">
             <span>
               <TextEffect per="char" preset="fade-in-blur">
-                Real-Time Insights for Cloud-Based Services
+                Real-Time Web Application Monitoring
               </TextEffect>
             </span>
             <span>
               <TextShimmer
                 duration={1.2}
-                className="py-4 [--base-color:theme(colors.blue.700)] [--base-gradient-color:theme(colors.blue.400)]"
+                className="py-2 sm:py-4 [--base-color:theme(colors.blue.700)] [--base-gradient-color:theme(colors.blue.400)]"
               >
                 Delivered to Your Discord
               </TextShimmer>
@@ -65,16 +65,16 @@ function Page() {
           </Heading>
         </div>
 
-        <p className="flex flex-col justify-center items-center text-lg text-gray-300 max-w-prose text-center relative z-20">
+        <p className="flex flex-col justify-center items-center text-base sm:text-lg text-gray-300 max-w-prose text-center relative z-20 px-4">
           KittyAt provides effortless monitoring for your web application. Stay
           instantly informed about
-          <span className="font-semibold text-foreground text-lg">
+          <span className="font-semibold text-foreground text-base sm:text-lg">
             revenue triggers, customer conversions, and key user interactions
           </span>
           through automated alerts.
         </p>
 
-        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl mt-10 mx-auto relative z-20">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 w-full max-w-6xl mt-8 sm:mt-10 mx-auto relative z-20 px-4">
           {[
             "Real-time Discord alerts for critical events",
             "One-time purchase, lifetime usage",
@@ -85,24 +85,26 @@ function Page() {
           ].map((item, index) => (
             <li
               key={index}
-              className="flex gap-3 items-center p-4 rounded-xl bg-slate-900/50 backdrop-blur-sm border border-slate-800 shadow-sm hover:shadow-md transition-shadow"
+              className="flex gap-2 sm:gap-3 items-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-slate-900/50 backdrop-blur-sm border border-slate-800 shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className="p-2 rounded-full bg-blue-900/20">
-                <CheckSquare2Icon className="size-6 text-blue-400" />
+              <div className="p-1.5 sm:p-2 rounded-full bg-blue-900/20">
+                <CheckSquare2Icon className="size-5 sm:size-6 text-blue-400" />
               </div>
-              <span className=" text-slate-200 font-medium">{item}</span>
+              <span className="text-sm sm:text-base text-slate-200 font-medium">
+                {item}
+              </span>
             </li>
           ))}
         </ul>
 
-        <div className="mt-8 relative z-20">
+        <div className="mt-6 sm:mt-8 relative z-20">
           <LoginButton asChild>
             <ShinyButton>Start for Free Today</ShinyButton>
           </LoginButton>
         </div>
       </section>
 
-      <div className="relative z-20 w-full overflow-hidden">
+      <div className="relative z-20 w-full overflow-hidden px-4">
         <MacbookScrollKit />
       </div>
 
@@ -117,9 +119,9 @@ function Page() {
           },
         }}
       >
-        <section className="relative bg-transparent pb-4">
+        <section className="relative bg-transparent pb-4 px-4">
           <div className="absolute inset-x-0 bottom-40 top-36 bg-[#3659B1]" />
-          <div className="relative mx-auto">
+          <div className="relative mx-auto max-w-7xl">
             <DiscordUi>
               <AnimatedList>
                 <DiscordMessage
@@ -167,6 +169,7 @@ function Page() {
           </div>
         </section>
       </InView>
+
       <InView
         viewOptions={{ once: true, margin: "0px 0px -100px 0px" }}
         variants={{
@@ -178,34 +181,32 @@ function Page() {
           },
         }}
       >
-        <section className="flex w-full flex-col items-center justify-center sm:py-24 text-center px-4 md:px-20 relative z-10">
-          <div className="flex flex-col items-center justify-center gap-12 sm:gap-16 mx-4 sm:mx-16 md:mx-16">
-            <LampContainer>
-              <div>
-                <h2 className="text-center text-2xl font-semibold text-blue-500">
+        <section className="flex w-full flex-col items-center justify-center sm:py-24 text-center px-4 md:px-8 lg:px-20 relative z-10">
+          <div className="flex flex-col items-center justify-center gap-8 sm:gap-12 md:gap-16 mx-4 sm:mx-8 md:mx-16">
+            <LampContainer className="w-full">
+              <div className="px-4">
+                <h2 className="text-center text-xl sm:text-2xl font-semibold text-blue-500">
                   Intuitive Monitoring
                 </h2>
-                <Heading>
+                <Heading className="text-3xl sm:text-4xl md:text-5xl">
                   <TextShimmer
                     duration={1.2}
-                    className="py-4 [--base-color:theme(colors.gray.700)] [--base-gradient-color:theme(colors.blue.400)]"
+                    className="py-2 sm:py-4 [--base-color:theme(colors.gray.700)] [--base-gradient-color:theme(colors.blue.400)]"
                   >
                     Stay ahead with real-time insights
                   </TextShimmer>
                 </Heading>
               </div>
             </LampContainer>
-            <div className="flex flex-col items-center justify-center gap-12 sm:gap-16 mx-4 sm:mx-16 md:mx-16">
-              <div>
-                <Bento />
-                <CodeCard />
-              </div>
+            <div className="w-full max-w-7xl">
+              <Bento />
+              <CodeCard />
             </div>
           </div>
         </section>
       </InView>
 
-      <section className="w-screen">
+      <section className="w-screen overflow-hidden px-4">
         <MovingCard />
       </section>
 
