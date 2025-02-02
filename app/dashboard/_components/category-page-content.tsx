@@ -13,7 +13,6 @@ import {
   ArrowRight,
   ArrowUpDown,
   BarChart,
-  Loader2,
 } from "lucide-react";
 import { isAfter, isToday, startOfMonth, startOfWeek } from "date-fns";
 
@@ -271,50 +270,48 @@ export const CategoryPageContent = ({
   if (!pollingData.hasEvents) {
     return <EmptyCategoryState categoryName={category.name} />;
   }
-
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 p-4 md:p-6 lg:p-8">
       <Tabs
         value={activeTab}
         onValueChange={(value) => {
           setActiveTab(value as "today" | "week" | "month");
         }}
       >
-        <TabsList className="mb-4 bg-muted/50 h-12">
+        <TabsList className="mb-4 bg-muted/50 h-12 w-full flex flex-wrap gap-2">
           <TabsTrigger
             value="today"
-            className="data-[state=active]:bg-background data-[state=active]:shadow-sm px-6 py-2 rounded-xl"
+            className="data-[state=active]:bg-background flex-1 min-w-[100px] max-w-[200px] text-sm md:text-base"
           >
             Today
           </TabsTrigger>
           <TabsTrigger
             value="week"
-            className="data-[state=active]:bg-background data-[state=active]:shadow-sm px-6 py-2 rounded-xl"
+            className="data-[state=active]:bg-background flex-1 min-w-[100px] max-w-[200px] text-sm md:text-base"
           >
             This Week
           </TabsTrigger>
           <TabsTrigger
             value="month"
-            className="data-[state=active]:bg-background data-[state=active]:shadow-sm px-6 py-2 rounded-xl"
+            className="data-[state=active]:bg-background flex-1 min-w-[100px] max-w-[200px] text-sm md:text-base"
           >
             This Month
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value={activeTab}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <Card className="bg-gradient-to-br from-background to-muted/50 p-6 shadow-lg">
-              <div className="flex items-center justify-between mb-4">
-                <p className="text-sm font-medium text-muted-foreground">
-                  Total Events
-                </p>
-                <BarChart className="size-5 text-primary" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
+            {/* Total Events Card */}
+            <Card className="bg-gradient-to-br from-background to-muted/50 shadow-lg p-4 md:p-6">
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-sm font-medium">Total Events</p>
+                <BarChart className="size-4 md:size-5" />
               </div>
               <div>
-                <p className="text-3xl font-bold tracking-tight">
+                <p className="text-2xl md:text-3xl font-bold">
                   {data?.eventsCount || 0}
                 </p>
-                <p className="text-xs text-muted-foreground mt-1">
+                <p className="text-xs mt-1">
                   {activeTab === "today"
                     ? "Today"
                     : activeTab === "week"
@@ -393,37 +390,32 @@ export const CategoryPageContent = ({
                 </div>
               </div>
             </Card>
-
+            {/* Numeric Field Cards */}
             <NumericFieldSumCards />
           </div>
         </TabsContent>
       </Tabs>
 
-      <div className="flex flex-col gap-6">
-        <div className="border-b pb-4">
-          <h1 className="text-4xl font-bold tracking-tight">Event Overview</h1>
+      <div className="flex flex-col gap-4 md:gap-6">
+        <div className="border-b pb-3 md:pb-4">
+          <h1 className="text-2xl md:text-3xl font-bold">Event Overview</h1>
         </div>
 
-        <Card className="p-6 shadow-lg">
-          <div className="rounded-lg overflow-hidden border">
-            <Table>
+        <Card className="p-4 md:p-6">
+          <div className="overflow-x-auto">
+            <Table className="min-w-[800px] md:min-w-full">
               <TableHeader className="bg-muted/50">
                 {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow
-                    key={headerGroup.id}
-                    className="hover:bg-transparent"
-                  >
+                  <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
                       <TableHead
                         key={header.id}
-                        className="font-semibold text-foreground py-4"
+                        className="py-3 px-4 text-sm md:text-base"
                       >
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                       </TableHead>
                     ))}
                   </TableRow>
@@ -433,64 +425,66 @@ export const CategoryPageContent = ({
               <TableBody>
                 {isFetching ? (
                   [...Array(5)].map((_, rowIndex) => (
-                    <TableRow key={rowIndex} className="hover:bg-transparent">
+                    <TableRow key={rowIndex}>
                       {columns.map((_, cellIndex) => (
-                        <TableCell key={cellIndex} className="py-4">
-                          <div className="h-5 w-full bg-gradient-to-r from-muted/25 to-muted/50 animate-pulse rounded-lg" />
+                        <TableCell key={cellIndex} className="py-3 px-4">
+                          <div className="h-4 md:h-5 bg-muted/25 animate-pulse rounded" />
                         </TableCell>
                       ))}
                     </TableRow>
                   ))
                 ) : table.getRowModel().rows.length ? (
-                  table.getRowModel().rows.map((row) => (
-                    <TableRow
-                      key={row.id}
-                      className="hover:bg-muted/25 transition-colors border-t"
-                    >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id} className="py-3">
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))}
+                    table.getRowModel().rows.map((row) => (
+                      <TableRow
+                        key={row.id}
+                        className="hover:bg-muted/25 transition-colors border-t"
+                      >
+                        {row.getVisibleCells().map((cell) => (
+                          <TableCell key={cell.id} className="py-3">
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow className="hover:bg-transparent">
+                      <TableCell
+                        colSpan={columns.length}
+                        className="h-24 text-center text-muted-foreground py-8"
+                      >
+                        No results found.
+                      </TableCell>
                     </TableRow>
-                  ))
-                ) : (
-                  <TableRow className="hover:bg-transparent">
-                    <TableCell
-                      colSpan={columns.length}
-                      className="h-24 text-center text-muted-foreground py-8"
-                    >
-                      No results found.
-                    </TableCell>
-                  </TableRow>
                 )}
               </TableBody>
             </Table>
           </div>
         </Card>
 
-        <div className="flex items-center justify-end gap-3 py-6">
+        {/* Pagination */}
+        <div className="flex flex-wrap gap-3 py-4 md:py-6">
           <Button
             variant="outline"
             size="sm"
-            className="shadow-sm gap-2"
+            className="flex-1 md:flex-none gap-2"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage() || isFetching}
           >
             <ArrowLeft className="size-4" />
-            Previous
+            <span className="sr-only md:not-sr-only">Previous</span>
           </Button>
+          
           <Button
             variant="outline"
             size="sm"
-            className="shadow-sm gap-2"
+            className="flex-1 md:flex-none gap-2"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage() || isFetching}
           >
-            Next
+            <span className="sr-only md:not-sr-only">Next</span>
             <ArrowRight className="size-4" />
           </Button>
         </div>
