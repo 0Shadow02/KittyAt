@@ -4,7 +4,7 @@ import { Codeblock } from './Code-Block'
 const CodeCard = () => {
   return (
     
-    <div className="w-full relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-black via-gray-900 to-gray-800 rounded-xl">
+    <div className="w-full relative py-24 px-4 mt-8 sm:mt-12 sm:px-6 lg:px-8 bg-gradient-to-br from-black via-gray-900 to-gray-800 rounded-xl">
     <div className="max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Text Content */}
