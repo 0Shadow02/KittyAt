@@ -334,155 +334,160 @@ export const CreateEventCategoryModal = ({
 
   return (
     <>
-      <div className={containerClassName} onClick={() => setIsOpen(true)}>
-        {children}
-      </div>
-      <Modal
-        className="max-w-[90vw] md:max-w-xl p-4 md:p-6 lg:p-8 rounded-xl shadow-2xl border border-gray-100 overflow-y-auto"
-        showModal={isOpen}
-        setShowModal={setIsOpen}
+    <div className={containerClassName} onClick={() => setIsOpen(true)}>
+      {children}
+    </div>
+    <Modal
+      className="max-w-[90vw] md:max-w-xl p-4 md:p-6 lg:p-8 rounded-xl shadow-2xl border border-gray-100 
+      h-full max-h-screen overflow-y-auto flex flex-col"
+      showModal={isOpen}
+      setShowModal={setIsOpen}
+    >
+        <div className="flex-1 overflow-y-auto max-h-[calc(100vh-8rem)]">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-6 md:space-y-8"
       >
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="space-y-6 md:space-y-8"
-        >
-          <div className="text-center space-y-2">
-            <h2 className="text-xl md:text-2xl font-bold text-gray-900 tracking-tight">
-              ✨ New Event Category
-            </h2>
-            <p className="text-gray-500 text-sm md:text-base leading-normal md:leading-relaxed">
-              Organize your events with custom categories. Choose a name, color,
-              and emoji to get started.
-            </p>
-          </div>
+        <div className="text-center space-y-2">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900 tracking-tight">
+            ✨ New Event Category
+          </h2>
+          <p className="text-gray-500 text-sm md:text-base leading-normal md:leading-relaxed">
+            Organize your events with custom categories. Choose a name, color,
+            and emoji to get started.
+          </p>
+        </div>
 
-          <div className="space-y-4 md:space-y-6">
-            <div className="space-y-2">
-              <Label
-                htmlFor="name"
-                className="text-gray-700 text-sm md:text-base"
-              >
-                Category Name
-              </Label>
-              <Input
-                autoFocus
-                id="name"
-                {...register("name")}
-                placeholder="e.g. user-signup"
-                className="w-full text-sm md:text-base focus:ring-2 focus:ring-blue-500 transition-all"
-                aria-invalid={!!errors.name}
-              />
-              {errors.name && (
-                <p className="mt-1.5 text-sm text-rose-500 flex items-center gap-1.5">
-                  <FaExclamationCircle className="w-4 h-4" />
-                  {errors.name.message}
-                </p>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <Label className="text-gray-700 text-sm md:text-base">
-                Accent Color
-              </Label>
-              <div className="flex flex-wrap gap-2 md:gap-3">
-                {COLOR_OPTIONS.map((premadeColor) => (
-                  <button
-                    key={premadeColor}
-                    type="button"
-                    style={{ backgroundColor: premadeColor }}
-                    className={cn(
-                      "size-8 md:size-10 rounded-full border-2 border-white shadow-sm hover:scale-105 transition-transform",
-                      "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
-                      color === premadeColor
-                        ? "scale-110 ring-2 ring-offset-2 ring-blue-500"
-                        : "hover:ring-2 hover:ring-gray-200"
-                    )}
-                    onClick={() => setValue("color", premadeColor)}
-                  />
-                ))}
-              </div>
-              {errors.color && (
-                <p className="mt-1.5 text-sm text-rose-500 flex items-center gap-1.5">
-                  <FaExclamationCircle className="w-4 h-4" />
-                  {errors.color.message}
-                </p>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <Label className="text-gray-700 text-sm md:text-base">
-                Category Emoji
-              </Label>
-              <div className="flex flex-wrap gap-2 md:gap-3 relative overflow-y-auto max-h-48 md:max-h-64 scrollbar-hide">
-                {loading && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
-                    {/* <div className="loader">Loading...</div> */}
-                  </div>
-                )}
-
-                {EMOJI_OPTIONS.map(({ emoji, label, isImage }) => (
-                  <button
-                    key={`${emoji}-${label}`}
-                    type="button"
-                    className={cn(
-                      "size-10 md:size-12 flex items-center justify-center text-xl md:text-2xl rounded-xl",
-                      "transition-all duration-200 ease-in-out transform",
-                      "hover:bg-blue-50 hover:border-blue-100 hover:scale-105",
-                      "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:scale-105",
-                      selectedEmoji === emoji
-                        ? "bg-blue-50 border-blue-500 scale-110 shadow-md"
-                        : "border-transparent"
-                    )}
-                    onClick={() => setValue("emoji", emoji)}
-                    disabled={loading}
-                  >
-                    {isImage ? (
-                      <img
-                        src={emoji}
-                        alt={label}
-                        className="w-6 h-6 md:w-8 md:h-8"
-                      />
-                    ) : (
-                      emoji
-                    )}
-                  </button>
-                ))}
-              </div>
-              {errors.emoji && (
-                <p className="mt-1.5 text-sm text-rose-500 flex items-center gap-1.5">
-                  <FaExclamationCircle className="w-4 h-4" />
-                  {errors.emoji.message}
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-4 pt-4 md:pt-6 border-t border-gray-100">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setIsOpen(false)}
-              className="w-full sm:w-auto hover:bg-gray-50 hover:text-black text-sm md:text-base"
+        <div className="space-y-4 md:space-y-6">
+          <div className="space-y-2">
+            <Label
+              htmlFor="name"
+              className="text-gray-700 text-sm md:text-base"
             >
-              Cancel
-            </Button>
-            <Button
-              disabled={isPending}
-              type="submit"
-              className="w-full sm:w-auto relative hover:-translate-y-0.5 transition-transform text-sm md:text-base"
-            >
-              {isPending ? (
-                <span className="flex items-center gap-2">
-                  <FaSpinner className="w-4 h-4 animate-spin" />
-                  Creating...
-                </span>
-              ) : (
-                "Create Category"
-              )}
-            </Button>
+              Category Name
+            </Label>
+            <Input
+              autoFocus
+              id="name"
+              {...register("name")}
+              placeholder="e.g. user-signup"
+              className="w-full text-sm md:text-base focus:ring-2 focus:ring-blue-500 transition-all"
+              aria-invalid={!!errors.name}
+            />
+            {errors.name && (
+              <p className="mt-1.5 text-sm text-rose-500 flex items-center gap-1.5">
+                <FaExclamationCircle className="w-4 h-4" />
+                {errors.name.message}
+              </p>
+            )}
           </div>
-        </form>
-      </Modal>
-    </>
+
+          <div className="space-y-2">
+            <Label className="text-gray-700 text-sm md:text-base">
+              Accent Color
+            </Label>
+            <div className="flex flex-wrap gap-2 md:gap-3">
+              {COLOR_OPTIONS.map((premadeColor) => (
+                <button
+                  key={premadeColor}
+                  type="button"
+                  style={{ backgroundColor: premadeColor }}
+                  className={cn(
+                    "size-8 md:size-10 rounded-full border-2 border-white shadow-sm hover:scale-105 transition-transform",
+                    "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
+                    color === premadeColor
+                      ? "scale-110 ring-2 ring-offset-2 ring-blue-500"
+                      : "hover:ring-2 hover:ring-gray-200"
+                  )}
+                  onClick={() => setValue("color", premadeColor)}
+                />
+              ))}
+            </div>
+            {errors.color && (
+              <p className="mt-1.5 text-sm text-rose-500 flex items-center gap-1.5">
+                <FaExclamationCircle className="w-4 h-4" />
+                {errors.color.message}
+              </p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-gray-700 text-sm md:text-base">
+              Category Emoji
+            </Label>
+            <div className="flex flex-wrap gap-2 md:gap-3 relative overflow-y-auto max-h-48 md:max-h-64 scrollbar-hide">
+              {loading && (
+                <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
+                  {/* <div className="loader">Loading...</div> */}
+                </div>
+              )}
+
+              {EMOJI_OPTIONS.map(({ emoji, label, isImage }) => (
+                <button
+                  key={`${emoji}-${label}`}
+                  type="button"
+                  className={cn(
+                    "size-10 md:size-12 flex items-center justify-center text-xl md:text-2xl rounded-xl",
+                    "transition-all duration-200 ease-in-out transform",
+                    "hover:bg-blue-50 hover:border-blue-100 hover:scale-105",
+                    "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:scale-105",
+                    selectedEmoji === emoji
+                      ? "bg-blue-50 border-blue-500 scale-110 shadow-md"
+                      : "border-transparent"
+                  )}
+                  onClick={() => setValue("emoji", emoji)}
+                  disabled={loading}
+                >
+                  {isImage ? (
+                    <img
+                      src={emoji}
+                      alt={label}
+                      className="w-6 h-6 md:w-8 md:h-8"
+                    />
+                  ) : (
+                    emoji
+                  )}
+                </button>
+              ))}
+            </div>
+            {errors.emoji && (
+              <p className="mt-1.5 text-sm text-rose-500 flex items-center gap-1.5">
+                <FaExclamationCircle className="w-4 h-4" />
+                {errors.emoji.message}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-4 pt-4 md:pt-6 border-t border-gray-100">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => setIsOpen(false)}
+            className="w-full sm:w-auto hover:bg-gray-50 hover:text-black text-sm md:text-base"
+          >
+            Cancel
+          </Button>
+          <Button
+            disabled={isPending}
+            type="submit"
+            className="w-full sm:w-auto relative hover:-translate-y-0.5 transition-transform text-sm md:text-base"
+          >
+            {isPending ? (
+              <span className="flex items-center gap-2">
+                <FaSpinner className="w-4 h-4 animate-spin" />
+                Creating...
+              </span>
+            ) : (
+              "Create Category"
+            )}
+          </Button>
+        </div>
+      </form>
+      </div>
+    </Modal>
+  </>
+   
+
   );
 };
