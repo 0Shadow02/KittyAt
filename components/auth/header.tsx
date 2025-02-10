@@ -29,12 +29,14 @@ export const Header = ({ label }: HeaderProps) => {
             font.className
           )}
         >
-          <span className="animate-pulse delay-75">🔒</span>
+          <span className="animate-pulse text-white delay-75">🔒</span>
           <span className="relative">
+            <p className=" text-white">
             KittyAt
+            </p>
             <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-gray-400/30 to-gray-400/0" />
           </span>
-          <span className="animate-pulse delay-150">🛡️</span>
+          <span className="animate-pulse text-white delay-150">🛡️</span>
         </h1>
       </div>
 
