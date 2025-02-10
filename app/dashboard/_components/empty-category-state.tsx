@@ -44,7 +44,7 @@ export const EmptyCategoryState = ({
     if (hasEvents) router.refresh();
   }, [hasEvents, router]);
 
-  const codeSnippet = `await fetch('http://localhost:3000/api/events', {
+  const codeSnippet = `await fetch('https://kittyat.me/api/v1/events', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer YOUR_API_KEY'
