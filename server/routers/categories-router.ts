@@ -167,7 +167,7 @@ export const categoryRouter = router({
     const categories = await prisma.eventCategory.createMany({
       data: [
         { name: "bug", emoji: "/LadyBug.png", color: 0xffffff },
-        { name: "sale", emoji: "💰", color: 0xffffff },
+        { name: "sale", emoji: "/calendar.gif", color: 0xffffff },
         {
           name: "question",
           emoji: "/cinnamoroll_question.png",
